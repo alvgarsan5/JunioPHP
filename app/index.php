@@ -88,32 +88,7 @@
             return;
         }
 
-
-
-
-
-        echo "En el aula " . $aula . " hay " . $equipos . " equipos afectados principalmente por problemas de " . $incidencias . " y se han perdido " . $horasTotales . " horas de clase.
-     Nivel de criticidad: " . $nivelIncidencia . "\n";
-
-        echo " <br> Como recomendación te diremos que: " . $mensajeElegido;
-
-
-        echo "<br><br>Protocolo de actuación paso a paso: ";
-
-        echo "<ol>";
-
-        foreach ($pasosProtocolo as $paso) {
-            echo "<li>" . $paso . "</li>";
-        }
-
-        echo "</ol>";
-
-
-
     }
-
-
-
 
 
     function nivelCriticidad($horasTotales, $equipos)
@@ -130,6 +105,34 @@
         }
     }
     ?>
+
+    <p>
+        En el aula <?= htmlspecialchars($aula) ?> hay <?= htmlspecialchars($equipos) ?> equipos afectados principalmente
+        por problemas de <?= htmlspecialchars($incidencias) ?> y se han
+        perdido <?= htmlspecialchars($horasTotales) ?> horas de clase. Nivel de criticidad:
+        <?= htmlspecialchars($nivelIncidencia) ?>
+    </p>
+
+    <p>
+        Como recomendación te diremos que: <?= htmlspecialchars($mensajeElegido) ?>
+    </p>
+
+    <p>Protocolo de actuación paso a paso:</p>
+
+    <?php foreach ($pasosProtocolo as $paso): ?>
+        <p><?= htmlspecialchars($paso) ?></p>
+    <?php endforeach; ?>
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
