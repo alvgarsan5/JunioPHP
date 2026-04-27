@@ -1,22 +1,21 @@
 <?php
     session_start();
+
+    
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $usuario = $_POST['usuario'];
         $contrasenya = $_POST['contrasenya'];
 
         $usuarioParaLogin = "Alvaro";
-        $contrasenyaParaLogin = "Alvaro1234";
+        $hashalmacenado =  password_hash("Alvaro1234", PASSWORD_DEFAULT);
 
-        if($usuario === $usuarioParaLogin && $contrasenya === $contrasenyaParaLogin){
+        if($usuario === $usuarioParaLogin && password_verify($contrasenya,$hashalmacenado)){
             $_SESSION['usuario'] = $usuario;
-            header("Location: incidencias.php");
+            header("Location: index.php");
             exit;
             
-        } elseif ($contrasenya != $contrasenyaParaLogin) {
-            $error = "Contraseña incorrecta, por  favor vuelve a intentarlo";
-
-        } elseif ($usuario != $usuarioParaLogin){
-            $error = "Usuario incorrecto o no registrado, por  favor vuelve a intentarlo";
+        } else {
+            $error = "contraseña o usuario erróneo, vuelvo a tenerlo porfa";
         }
     }
     ?>

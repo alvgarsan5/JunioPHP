@@ -1,47 +1,21 @@
-<!DOCTYPE html>
-<html lang="es">
+<?php
+session_start();
+        // inicializo las variables vacías para que no me salgan errores ni warnings en idex.php cuando me redirijo del login
+        $aula = "";
+        $equipos = "";
+        $incidencias = "";
+        $horasTotales = "";
+        $nivelIncidencia = "";
+        $mensajeElegido = "";
+        $recomendaciones = [];
+        $pasosProtocolo = [];
 
-<head>
-    <meta charset="UTF-8">
-    <title>Calculadora de Incidencias</title>
-</head>
+        if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
 
-<body>
-    <h1>Calculadora de Incidencias del IES CAMP DE MORVEDRE</h1>
 
-    <form action="index.php" method="POST">
-        <!-- Ejemplo 1: Campo de texto para el Aula -->
-        <div>
-            <label for="aula">Aula:</label>
-            <input type="text" id="aula" name="aula" required>
-        </div>
-        <br>
-
-        <div>
-            <label for="equipos">Número de equipos con incidencia.:</label>
-            <input type="number" id="equipos" name="equipos" required>
-        </div>
-        <br>
-
-        <div>
-            <label for="incidencias">Tipo de incidencia principal (select: “Red”, “Hardware”, “Software”).</label>
-            <select id="incidencias" name="incidencias">
-                <option value="red">“Red”</option>
-                <option value="hardware">“Hardware”</option>
-                <option value="software">“Software”</option>
-            </select>
-        </div>
-        <br>
-
-        <div>
-            <label for="horasTotales">Horas totales de clase afectadas.:</label>
-            <input type="number" id="horasTotales" name="horasTotales" required>
-        </div>
-        <br>
-        <button type="submit">Enviar Datos</button>
-    </form>
-
-    <?php
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $aula = $_POST['aula'];
         $equipos = $_POST['equipos'];
@@ -106,6 +80,51 @@
     }
     ?>
 
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora de Incidencias</title>
+</head>
+
+<body>
+    <h1>Calculadora de Incidencias del IES CAMP DE MORVEDRE</h1>
+
+    <form action="index.php" method="POST">
+        <!-- Ejemplo 1: Campo de texto para el Aula -->
+        <div>
+            <label for="aula">Aula:</label>
+            <input type="text" id="aula" name="aula" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="equipos">Número de equipos con incidencia.:</label>
+            <input type="number" id="equipos" name="equipos" required>
+        </div>
+        <br>
+
+        <div>
+            <label for="incidencias">Tipo de incidencia principal (select: “Red”, “Hardware”, “Software”).</label>
+            <select id="incidencias" name="incidencias">
+                <option value="red">“Red”</option>
+                <option value="hardware">“Hardware”</option>
+                <option value="software">“Software”</option>
+            </select>
+        </div>
+        <br>
+
+        <div>
+            <label for="horasTotales">Horas totales de clase afectadas.:</label>
+            <input type="number" id="horasTotales" name="horasTotales" required>
+        </div>
+        <br>
+        <button type="submit">Enviar Datos</button>
+    </form>
+
+   
+
     <p>
         En el aula <?= htmlspecialchars($aula) ?> hay <?= htmlspecialchars($equipos) ?> equipos afectados principalmente
         por problemas de <?= htmlspecialchars($incidencias) ?> y se han
@@ -122,6 +141,11 @@
     <?php foreach ($pasosProtocolo as $paso): ?>
         <p><?= htmlspecialchars($paso) ?></p>
     <?php endforeach; ?>
+
+
+    <?php if (isset($_SESSION['usuario'])) { ?>
+        <p><?php echo "bienvenido " . $_SESSION['usuario']; ?></p>
+        <?php } ?>
 
 
 
