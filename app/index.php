@@ -9,6 +9,7 @@ session_start();
         $mensajeElegido = "";
         $recomendaciones = [];
         $pasosProtocolo = [];
+        $resumen = "";
 
         if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
@@ -23,6 +24,7 @@ session_start();
         $horasTotales = $_POST['horasTotales'];
         $nivelIncidencia = nivelCriticidad($horasTotales, $equipos);
         $mensajeElegido = "";
+       
 
         $recomendaciones = array(
             "red" => "Revisa los cables de red que no esten muy doblados o si estan bien conectador al interruptor.",
@@ -39,6 +41,7 @@ session_start();
             "Dejar un post-it en la torre del ordenador avisando de la incidencia."
         );
 
+        
         switch ($incidencias) {
             case "red":
                 $mensajeElegido = $recomendaciones["red"];
@@ -78,6 +81,12 @@ session_start();
 
         }
     }
+
+    $resumen = "Hoy en el aula $aula hay $equipos equipos afectados principalmente por problemas de $incidencias y se han perdido $horasTotales horas de clase. Nivel de criticidad: $nivelIncidencia.";
+
+    $_SESSION['resumen'] = $resumen;
+
+
     ?>
 
 <!DOCTYPE html>
@@ -123,14 +132,11 @@ session_start();
         <button type="submit">Enviar Datos</button>
     </form>
 
-   
 
-    <p>
-        En el aula <?= htmlspecialchars($aula) ?> hay <?= htmlspecialchars($equipos) ?> equipos afectados principalmente
-        por problemas de <?= htmlspecialchars($incidencias) ?> y se han
-        perdido <?= htmlspecialchars($horasTotales) ?> horas de clase. Nivel de criticidad:
-        <?= htmlspecialchars($nivelIncidencia) ?>
-    </p>
+    <?php if (isset($_SESSION['resumen'])) { ?>
+        <p><?php echo "En la última sesión, el usuario  " . $_SESSION['usuario'] . "
+        nos ha informado que las incidencias en la última sesión fueron estaS: " . $_SESSION['resumen']; ?></p>
+        <?php } ?>
 
     <p>
         Como recomendación te diremos que: <?= htmlspecialchars($mensajeElegido) ?>
