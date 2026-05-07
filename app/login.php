@@ -1,5 +1,11 @@
 <?php
     session_start();
+// probando a redirigir directamente al index.php si el usuario ya ha iniciado sesión para no tener que logurase ;
+if (isset($_SESSION['usuario'])) {
+    header("Location: index.php");
+    exit;
+}
+
 
     
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
