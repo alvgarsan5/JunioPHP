@@ -22,8 +22,9 @@ class AutenticarController {
         // recogemos el POST del formulario de login
         $usuario = $_POST['usuario'];
         // llamamos al servicio de autenticacion para validar el usuario
-        if ($usuario === "Alvaro") {
-            // si es correcto, guardamos a sesion y lo redirigmos a index.php
+        $authService = new AuthService();
+        if ($authService->validarUsuario($usuario)) {
+            // si el usuario es correcto, guardamos el usuario en la sesión y redirigimos al index.php
             $_SESSION['usuario'] = $usuario;
             header("Location: index.php");
             exit;
