@@ -8,7 +8,7 @@ class AutenticarController {
     session_start();
     // Si el usuario ya ha iniciado sesión, lo redirigimos al index.php
     if (isset($_SESSION['usuario'])) {
-        header("Location: index.php");
+        header("Location: /views/index.php");
         exit;
     }
     // si no hay sesion iniciada, enviamos el formulario de login
