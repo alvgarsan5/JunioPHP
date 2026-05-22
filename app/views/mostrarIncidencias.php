@@ -5,10 +5,9 @@ require_once __DIR__ .  "/../Servicios/IncidenciaService.php";
 
 // aqui vamos a hacer un html imprimiendo cada una de las incidencias que hay 
 // guardadas en local con un foreach y mostrando el aula, el tipo de incidencia, el número de equipos afectados y las horas totales de clase afectadas por cada incidencia. Para ello, vamos a llamar al servicio de incidencias para obtener todas las incidencias y luego las imprimimos en el html.
-$servicioIncidencia = new IncidenciaService();
-$incidencias = $servicioIncidencia->obtenerIncidenciasRecientes();
-$controlador = new IncidenciasController();
 
+$controlador = new IncidenciasController();
+$incidencias = $controlador->mostrarIncidencias();
 
 
 // for each para imprimir cada una de las incidencias que hay guardadas en local con un foreach.

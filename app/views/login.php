@@ -26,7 +26,8 @@ if (isset($_SESSION['usuario'])) {
 
         <div>
             <label for="usuario">Usuario:</label>
-            <input type="text" id="usuario" name="usuario" required>
+            <input type="text" id="usuario" name="usuario" required
+            value="<?php echo htmlspecialchars($_COOKIE['ultimo_usuario'] ?? ''); ?>">
         </div>
         <br>
 

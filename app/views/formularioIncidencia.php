@@ -1,4 +1,6 @@
 <?php
+// acuerdate siempreeeeee
+session_start();
 
 require_once __DIR__ . '/../controllers/IncidenciasController.php';
 require_once __DIR__ . '/../Servicios/IncidenciaService.php';

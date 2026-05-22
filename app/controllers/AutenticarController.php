@@ -22,6 +22,8 @@ class AutenticarController {
 
         // recogemos el POST del formulario de login
         $usuario = $_POST['usuario'];
+        // guardamos el usuario en una cookie para recordar el último usuario que ha iniciado sesión
+        setcookie('ultimo_usuario', $usuario, time() + 86400, '/');
         // llamamos al servicio de autenticacion para validar el usuario
         $autentinticarService = new AutenticarService();
         if ($autentinticarService->validarUsuario($usuario, $_POST['contrasenya'])) {
