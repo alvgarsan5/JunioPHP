@@ -39,11 +39,17 @@ class AutenticarController {
     return $errores;
     }
 
-    public function logout() {
-        // destruimos la sesion para cerrar la sesión del usuario
-        session_destroy();
-        // redirigimos al login.php
-        header("Location: login.php");
-        exit;
-    }
+public function logout() {
+    // iniciamos sesion aqui porque en logout.php no se ha iniciado sesion, y necesitamos iniciar sesion para poder destruirla
+    session_start();
+    // vaciamos el array de sesión para quitar las variables de sesión y destruimos la sesión 
+    $_SESSION = [];
+    // destruimos la sesión
+    session_destroy();
+     // Eliminamos la cookie poniendo fecha de expiración en el pasado
+    setcookie('ultimo_usuario', '', time() - 3600, '/');
+
+    header("Location: login.php");
+    exit;
+}
 }
