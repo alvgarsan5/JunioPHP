@@ -4,11 +4,6 @@ require_once __DIR__ .  "/../Servicios/AutenticarService.php";
     session_start();
     $controlador = new AutenticarController();
     $errores = $controlador->login();
-// probando a redirigir directamente al index.php si el usuario ya ha iniciado sesión para no tener que logurase ;
-if (isset($_SESSION['usuario'])) {
-    header("Location: index.php");
-    exit;
-}
     ?>
 <!DOCTYPE html>
 <html lang="en">
