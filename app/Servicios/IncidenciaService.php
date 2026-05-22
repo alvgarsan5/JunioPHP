@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . '/../models/Incidencia.php';
 class IncidenciaService {
 
 public function obtererAula(){
@@ -23,8 +23,8 @@ public function obtererTipoIncidencia(){
         }
     }
 
-    public function obtenerIncidenciasRecieentes() {
-        
+    public function obtenerIncidenciasRecientes() {
+        return $_SESSION['incidencias'] ?? [];
     }
 
 

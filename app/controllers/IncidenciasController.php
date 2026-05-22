@@ -1,20 +1,23 @@
 <?php
-
+require_once __DIR__ . '/../Servicios/IncidenciaService.php';
 class IncidenciasController {
 
 public function validarFormulario(){
+
 // creamos un array de errores antes del condicional para almacenar los errores de validación del formulario
 $errores = [];
+// Si el método de la petición no es POST, devolvemos un array vacío de errores y datos.
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    return ['errores' => [], 'datos' => []];
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {    
 
-
-
-
-        // 1. Validación básica de formulario
-        $aula = $_POST['aula'] ?? '';
-        $tipo = $_POST['incidencias'] ?? '';
-        $equipos = $_POST['equipos'] ?? '';
-        $horas = $_POST['horasTotales'] ?? '';
+    // 1. Validación básica de formulario
+    $aula = $_POST['aula'] ?? '';
+    $tipo = $_POST['incidencias'] ?? '';
+    $equipos = $_POST['equipos'] ?? '';
+    $horas = $_POST['horasTotales'] ?? '';
 
     if ($aula === '') {
         $errores[] = "Selecciona un aula.";
@@ -32,17 +35,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "Introduce un número válido de horas.";
     }
 
-    // Condicional extra, por ejemplo si quieres validar que el tipo sea uno de los permitidos
-    if (!in_array($tipo, ['Hardware', 'Software', 'Red'], true)) {
-        $errores[] = "Tipo de incidencia no válido.";
-    }
+     // guardamos la incidencia en el array de sesión
+    //El [] al final significa "añadir al array", no sobreescribirlo.
+    if(empty($errores)) {
+        $servicio = new IncidenciaService();
+        $servicio->crearIncidencia($aula, $tipo, $equipos, $horas);
 
-    return $errores;
+        $_SESSION['incidencias'][] = [
+        'aula'    => $aula,
+        'tipo'    => $tipo,
+        'equipos' => $equipos,
+        'horas'   => $horas
 
+        ];
+
+
+        }
+
+    // Si no hay errores, podemos procesar la incidencia, recogemos los datos del formulario 
+    // que ha n sido puesto en cada campo del formulario y los devolvemos en un array para que el
+    // formulario pueda mostrar los datos introducidos.
+    return [
+    'errores' => $errores,
+    'datos' => [
+        'aula' => $aula,
+        'incidencias' => $tipo,
+        'equipos' => $equipos,
+        'horasTotales' => $horas,
+    ],
+];
+
+}
 }
 
 
-
+public function mostrarIncidencias() {
+    $servicio = new IncidenciaService();
+    return $servicio->obtenerIncidenciasRecientes();
 }
 
 }

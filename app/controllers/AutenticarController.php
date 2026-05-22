@@ -4,8 +4,6 @@ class AutenticarController {
 
     public function showLogin() {
 
-    // iniciamos sesion 
-    session_start();
     // Si el usuario ya ha iniciado sesión, lo redirigimos al index.php
     if (isset($_SESSION['usuario'])) {
         header("Location: /views/index.php");
@@ -16,30 +14,30 @@ class AutenticarController {
     }
 
     public function login() {
-        // inicamos sesion
-        session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    return []; 
+    }
+        $errores = [];
 
         // recogemos el POST del formulario de login
         $usuario = $_POST['usuario'];
         // llamamos al servicio de autenticacion para validar el usuario
-        $authService = new AuthService();
-        if ($authService->validarUsuario($usuario)) {
+        $autentinticarService = new AutenticarService();
+        if ($autentinticarService->validarUsuario($usuario, $_POST['contrasenya'])) {
             // si el usuario es correcto, guardamos el usuario en la sesión y redirigimos al index.php
             $_SESSION['usuario'] = $usuario;
-            header("Location: index.php");
+            header("Location: /views/index.php");
             exit;
 
         } else {
             // si no es correcto, redirigimos al login.php con un mensaje de error
-            $_SESSION['error'] = "Usuario o contraseña incorrectos";
-            header("Location: login.php");
-            exit;
-        }
+            $errores[] = "Usuario o contraseña incorrectos";
+}
+    return $errores;
     }
 
     public function logout() {
-        // iniciamos sesion
-        session_start();
         // destruimos la sesion para cerrar la sesión del usuario
         session_destroy();
         // redirigimos al login.php

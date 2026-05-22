@@ -1,29 +1,14 @@
 <?php
+require_once __DIR__ .  "/../controllers/AutenticarController.php";
+require_once __DIR__ .  "/../Servicios/AutenticarService.php";
     session_start();
+    $controlador = new AutenticarController();
+    $errores = $controlador->login();
 // probando a redirigir directamente al index.php si el usuario ya ha iniciado sesión para no tener que logurase ;
 if (isset($_SESSION['usuario'])) {
     header("Location: index.php");
     exit;
 }
-
-
-    
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        $usuario = $_POST['usuario'];
-        $contrasenya = $_POST['contrasenya'];
-
-        $usuarioParaLogin = "Alvaro";
-        $hashalmacenado =  password_hash("Alvaro1234", PASSWORD_DEFAULT);
-
-        if($usuario === $usuarioParaLogin && password_verify($contrasenya,$hashalmacenado)){
-            $_SESSION['usuario'] = $usuario;
-            header("Location: index.php");
-            exit;
-            
-        } else {
-            $error = "contraseña o usuario erróneo, vuelvo a tenerlo porfa";
-        }
-    }
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +42,12 @@ if (isset($_SESSION['usuario'])) {
 
         <button type="submit">Entrar</button>
     </form> 
-
+    <!-- si hay errores, los mostramos -->
+    <ul>
+        <?php foreach ($errores as $error): ?>
+            <li><?php echo htmlspecialchars($error); ?></li>
+        <?php endforeach; ?>
+    </ul>
 
 </body>
 </html>
