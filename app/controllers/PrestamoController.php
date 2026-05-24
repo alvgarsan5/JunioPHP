@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $numeroTablets = $_POST['numeroTablets'] ?? '';
     $horasUso = $_POST['horasUso'] ?? '';
     $prestamo = $_POST['prestamo'] ?? '';
+    
 
     if ($aula === '') {
         $errores[] = "Selecciona un aula.";

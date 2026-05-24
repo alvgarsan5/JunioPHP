@@ -15,9 +15,9 @@ $prestamos = $servicioPrestamos->obtenerPrestamosRecientes();
     <meta charset="UTF-8">
     <title>Mostrar Préstamos de Tablets</title>
 
-    // for each para imprimir cada uno de los prestamos que hay guardados en local con un foreach.
+    <!-- for each para imprimir cada uno de los prestamos que hay guardados en local con un foreach.
     // vamos a mostrar el aula, el número de tablets, las horas de uso y el tipo de préstamo de cada préstamo. Para ello, 
-    // vamos a llamar al servicio de prestamos para obtener todos los prestamos y luego los imprimimos en el html
+    // vamos a llamar al servicio de prestamos para obtener todos los prestamos y luego los imprimimos en el html -->
 
     <h1>Préstamos de Tablets recientes</h1>
 <?php if (empty($prestamos)): ?>
@@ -35,5 +35,7 @@ $prestamos = $servicioPrestamos->obtenerPrestamosRecientes();
     </ul>
 <?php endif; ?>
 <button type="submit"><a href="index.php">Volver al inicio</a></button>
+<button type="submit"><a href="logout.php">Cerrar sesión</a></button>
+
 </head>
 

@@ -29,7 +29,7 @@ class AutenticarController {
         if ($autentinticarService->validarUsuario($usuario, $_POST['contrasenya'])) {
             // si el usuario es correcto, guardamos el usuario en la sesión y redirigimos al index.php
             $_SESSION['usuario'] = $usuario;
-            header("Location: /views/index.php");
+            header("Location: /views/prestamosTablets.php");
             exit;
 
         } else {
