@@ -9,8 +9,11 @@ class AutenticarController {
         header("Location: /views/index.php");
         exit;
     }
-    // si no hay sesion iniciada, enviamos el formulario de login
-    require_once "app/views/login.php";
+
+    // Si el usuario no ha iniciado sesión, mostramos el formulario de login
+    
+
+    
     }
 
     public function login() {

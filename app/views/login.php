@@ -3,6 +3,7 @@ require_once __DIR__ .  "/../controllers/AutenticarController.php";
 require_once __DIR__ .  "/../Servicios/AutenticarService.php";
     session_start();
     $controlador = new AutenticarController();
+    $vistas = $controlador->showLogin();
     $errores = $controlador->login();
     ?>
 <!DOCTYPE html>
