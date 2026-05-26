@@ -10,7 +10,7 @@ $controlador = new IncidenciasController();
 $incidencias = $controlador->mostrarIncidencias();
 
 
-// for each para imprimir cada una de las incidencias que hay guardadas en local con un foreach.
+// for each para imprimir cada una de las incidencias que hay guardadas en local con un foreach.S
 ?>
 <h1>Incidencias recientes</h1>
 <?php if (empty($incidencias)): ?>

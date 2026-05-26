@@ -18,6 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo = $_POST['incidencias'] ?? '';
     $equipos = $_POST['equipos'] ?? '';
     $horas = $_POST['horasTotales'] ?? '';
+    // con un radio button seria igual pero poniendo null no "";
+    // si queremos que sean varias selecciones en un checkbox simplemente en el name ponemos que sea un array y ya esta ej:reservas[];
+    
 
     if ($aula === '') {
         $errores[] = "Selecciona un aula.";
