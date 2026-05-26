@@ -33,10 +33,16 @@ $tiposIncidencia = $servicioIncidencia->obtererTipoIncidencia();
         <!-- Ejemplo 1: Campo de texto para el Aula -->
         <div>
             <label for="aula">Aula:</label>
+             <!-- Abrimos el desplegable. id sirve para relacionarlo con el label, name es el nombre con el que llegará en $_POST -->
             <select id="aula" name="aula" required>
+            <!-- Esta es la opción inicial vacía.value="" significa que no hay aula elegida todavía.
+             selected hace que salga marcada al cargar. disabled impide que el usuario la envíe como opción válida --> 
             <option value="" selected disabled>Selecciona un aula</option>
+            <!-- Recorremos el array que hemos creado con distintos tipos de aulas -->
             <?php foreach ($tiposAula as $aula): ?>
+                <!-- Aqui damos el value a cada aula, en cad aiteración -->
             <option value="<?php echo htmlspecialchars($aula); ?>">
+                <!-- Ejemplo 1: Aquí imprimimos dentro del select las distintas opciones -->
             <?php echo htmlspecialchars($aula); ?>
             </option>
             <?php endforeach; ?>
